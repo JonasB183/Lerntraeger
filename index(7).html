@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatik Software Engineering</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico">
+</head>
+
+<body>
+    <h1>Dies ist eine EM-2024 Webseite</h1>
+
+    <main>
+        <section>
+
+            <select id="selectTeam1">
+                <option>Wählen Sie ein Team aus</option>
+            </select>
+        </section>
+        <section>
+
+            <select id="selectTeam2">
+                <option>Wählen Sie ein Team aus</option>
+            </select>
+
+        </section>
+        
+            <button type="button" class="center" onclick="CompareTeams()">Mannschaften vergleichen</button>
+
+            <span id=outputText></span>             
+        
+    </main>
+</body>
+<script src="lerntraeger.js"></script>
+<script>
+    //TEST
+//definition of EM groups
+    const GruppeA = ["Deutschland","Schottland","Ungarn","Schweiz"];
+    const GruppeB = ["Spanien","Kroatien","Italien","Albanien"];
+    const GruppeC = ["Slowenien","Dänemark","Serbien","England"];
+    const GruppeD = ["Polen","Niederlande","Österreich","Frankreich"];
+    const GruppeE = ["Belgien","Slowakei","Rumänien","Ukraine"];
+    const GruppeF = ["Türkei","Georgien","Portugal","Tschechien"];
+
+//List of all teams
+
+var Teilnehmer = GruppeA.concat(GruppeB,GruppeC,GruppeD,GruppeE,GruppeF);
+
+//teams in dropdown menu
+
+    var Teams1 = document.getElementById("selectTeam1");
+    var Teams2 = document.getElementById("selectTeam2");
+
+    //dropdown 1
+
+    for(var i = 0; i < Teilnehmer.length; i++) 
+    {
+        var opt1 = Teilnehmer[i];
+        var el1 = document.createElement("option");
+        el1.textContent = opt1;
+        el1.value = opt1;
+        Teams1.appendChild(el1);
+    }
+    //dropdown 2
+
+    for(var j = 0; j < Teilnehmer.length; j++) 
+    {    
+        var opt2 = Teilnehmer[j];
+        var el2 = document.createElement("option");
+        el2.textContent = opt2;
+        el2.value = opt2;
+        Teams2.appendChild(el2);
+    }
+
+//compare the Teams
+
+    function CompareTeams()
+    {
+        var SelTeam1 = document.getElementById("selectTeam1")
+        var SelTeam2 = document.getElementById("selectTeam2")
+
+        let result=false;
+        //are both teams in the same group?
+  
+            if(GruppeA.includes(SelTeam1.value))
+            {
+                
+                    If(GruppeA.includes(SelTeam2.value))
+                    {
+                        result=true;
+                    }   
+            }
+            elseif(GruppeB.includes(SelTeam1.value))
+            {
+                    If(GruppeB.includes(SelTeam2.value))
+                    {
+                        result=true;
+                    }                     
+            }
+            elseif(GruppeC.includes(SelTeam1.value))
+            {
+ 
+                    If(GruppeC.includes(SelTeam2.value))
+                    {
+                        result=true;
+                    }                
+            }
+            elseif(GruppeD.includes(SelTeam1.value))
+            {                
+                    If(GruppeD.includes(SelTeam2.value))
+                    {
+                        result=true;
+                    }                
+            }
+            elseif(GruppeE.includes(SelTeam1.value))
+            {
+                
+                    If(GruppeE.includes(SelTeam2.value))
+                    {
+                        result=true;
+                    }
+                } 
+            elseif(GruppeF.includes(SelTeam1.value))
+            {
+                
+                    If(GruppeF.includes(SelTeam2.value))
+                    {
+                        result=true;
+                    }                
+            }
+        //return
+        If(result=true)
+        {
+            outputText.innerText="Teams sind in einer Gruppe";
+        }
+
+
+    }
+
+        
+    
+
+
+
+
+   
+
+</script>
+
+</html>

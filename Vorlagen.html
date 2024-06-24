@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonas Bittner</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="shortcut icon" href="../favicon.ico">
+</head>
+<body>
+    <h1>Jonas Bittner</h1>
+    <p>In dieser Übung wird ein einfaches Prüfprogramm für eine ISBN10-Nummer erstellt.</p>
+    <a href="../index.html">Zurück zur Übersicht</a>
+
+    <main>
+        <section>
+        <h2>Programm</h2> 
+       
+            <!--Eingabefeld -->            
+            <label for="inputText">Eingabetext</label> 
+            <input id="inputText" type="text" />
+
+            <label for="inputNumber1">Zahl1</label> 
+            <input id="inputNumber1" type="number" />
+
+            <label for="inputNumber2">Zahl2</label> 
+            <input id="inputNumber2" type="number" />
+
+            <!--Button --> 
+            <button onclick="printText()">Ausgabe</button>
+
+            <button onclick="Addition()">Zahlen addieren</button>
+
+            <button onclick="list()">Liste ausgeben</button>
+     
+            <!--Radio-Buttons--><!--Name der Radio Elemente muss gleich sein-->
+            <input type="radio" id="inputDecimalToHexadecimal" name="inputSelection" value="decimalToHexadecimal" checked>
+            <label for="inputDecimalToHexadecimal">Dezimal zu Hexadezimal</label>
+            <input type="radio" id="inputHexadecimalToDecimal" name="inputSelection" value="hexadecimalToDecimal">
+            <label for="inputHexadecimalToDecimal">Hexadezimal zu Dezimal</label>
+            <input type="radio" id="inputDualToDecimal" name="inputSelection" value="dualToDecimal">
+            <label for="inputDualToDecimal">Dual zu Dezimal</label>
+
+            <!--Wert des Radio Buttons ausgeben-->
+            <button onclick="convert()">Radio Wert ausgeben</button>
+        
+
+            <!--Dropdown Menu-->
+            <select id="amountUnit">
+                <option value="Byte">Byte</option>
+                <option value="KByte">KByte</option>
+                <option value="MByte">MByte</option>
+            </select>
+
+            <!--Ausgabefeld-->
+            <p>
+                <span>Ausgabetext:</span><br>
+                <span id="outputText"></span>
+            </p>
+
+            <!--Personenliste -->
+            <label for="firstName"><b>Vorname:</b></label>
+            <input id="firstName" type="text">
+            <label for="lastName"><b>Nachname:</b></label>
+            <input id="lastName" type="text">
+  
+            <button onclick="add()">Hinzufügen</button>
+            <button onclick="show()">Anzeigen</button>
+            <p><b>Liste an Personen:</b></p>
+            <p id="output"></p> 
+            
+            <!--Datenratenrechner-->
+            <label for="amount"><b>Datenmenge:</b></label>
+            <input id="amount" type="number">
+            <label for="amountUnit"><b>Einheit:</b></label>
+            <select id="amountUnit">
+                <option value="Byte">Byte</option>
+                <option value="KByte">KByte</option>
+                <option value="MByte">MByte</option>
+            </select>
+ 
+            <label for="rate"><b>Datenrate:</b></label>
+            <input id="rate" type="number">
+ 
+            <select id="rateUnit">
+                <option value="KBit/s">KBit/s</option>
+                <option value="MBit/s">MBit/s</option>
+            </select>
+            <button onclick="calculate()">Berechnen</button>
+            <p>
+                <span><b>Dauer:</b></span>
+                <span id="duration"></span>
+            </p>
+ 
+            <label for="userDuration"><b>Dauer in s (gerundet):</b></label>
+            <input id="userDuration" type="number">
+            <button onclick="check()">Prüfen</button>
+        </section>
+    </main>
+    <script>
+
+        //1. Einfache Ausgabe eines Textes
+            function printText(){
+            //Definition einer Variabel
+                let input = document.getElementById("inputText").value;
+
+                let output = input;
+
+                outputText.innerText= output;
+            }
+        //2.Definition der Konstanten
+            const number1 = document.getElementById("inputNumber1");
+            const number2 = document.getElementById("inputNumber2");
+            let result1 = "";
+
+        //2.1.Rechenoperationen
+            function Addition(){
+                //Definition der Variabeln
+                    
+                    //ValueAsNumber, damit nicht die Strings kombiniert werden
+                    result1 = number1.valueAsNumber + number2.valueAsNumber;
+                    outputText.innerText=result1;
+                    //* / -     modulo-->%
+
+            }
+
+        //3.array definieren
+        const autos = ["BMW","Mercedes-Benz","Audi","Ford","Toyota"];
+        
+        //3.1.Audzählung einer Liste, For Schleife
+        function list(){
+            let text="";
+            for(i=0;i<autos.length;i++){
+
+                text += autos[i] + "<br>";
+
+            }
+            outputText.innerHTML= text;
+
+        }
+
+        //4.Zahlensysteme Convertieren mit Radiobutton
+        const listOfRadioButtons = document.getElementsByName("inputSelection");
+
+        function convert(){
+            let SelectedOption ="";
+            let result ="";
+                
+            for(i=0;i<listOfRadioButtons.length;i++){
+
+                let radioButton = listOfRadioButtons[i];
+                if(radioButton.checked){
+                    SelectedOption=radioButton.value;
+                }
+            }
+            outputText.innerText=SelectedOption;
+        }
+
+        //5.Definieren einer Klasse
+        const firstName = document.getElementById("firstName");
+        const lastName = document.getElementById("lastName");
+        const output = document.getElementById("output");
+
+        class Person 
+        {
+            constructor(firstName, lastName)
+            {
+                 this.firstName = firstName;  //Attribut der Klasse
+                 this.lastName = lastName;   //Attribut der Klasse
+            }
+ 
+           //Methode der Klasse
+            fullName()
+           {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+            //5.1.hinzufügen eines neuen Objektes der Klasse
+            let listOfPersons = [];
+            function add() 
+            {
+                //Erzeuge ein Objekt der Klasse Person und intitalisiere diese mit Vor-/Nachname
+                let p = new Person(firstName.value, lastName.value);
+                output.innerHTML = p.fullName() + " wurde hinzugefügt.";
+                //Füge das Objekt p zu der Liste hinzu
+                listOfPersons.push(p);
+                }
+ 
+            function show() 
+            {
+                //Lösche den Inhalt in dem Ausgabefeld           
+                output.innerHTML = "";
+                //Durchlaufe die Liste und gib zeilenweise die Namean darin aus
+                for (let i = 0; i < listOfPersons.length; i++) 
+                {
+                    output.innerHTML += listOfPersons[i].fullName() + "<br>";
+                }
+            }
+
+
+        //Datenratenrechner
+            const amount = document.getElementById("amount");
+            const rate = document.getElementById("rate");
+            const duration = document.getElementById("duration");
+            const amountUnit = document.getElementById("amountUnit");
+            const rateUnit = document.getElementById("rateUnit");
+            const userDuration = document.getElementById("userDuration");
+            
+            let bitAmount = 0;
+            let bitRate = 0;
+            let result = 0;
+            
+            function calculate() {
+                        //Ermittle die Menge an Bit aus der Datenmenge
+                        if (amountUnit.value == "Byte") {
+                            bitAmount = amount.value * 8;
+                        }
+                        if (amountUnit.value == "KByte") {
+                            bitAmount = amount.value * 1024 * 8;
+                        }
+                        if (amountUnit.value == "MByte") {
+                            bitAmount = amount.value * 1024 * 1024 * 8;
+                        }
+            
+                        //Ermittle die Anzahl an Bit aus der Datenübertragungsrate
+                        if (rateUnit.value == "KBit/s") {
+                            bitRate = rate.value * 1000;
+                        }
+                        if (rateUnit.value == "MBit/s") {
+                            bitRate = rate.value * 1000 * 1000;
+                        }
+            
+                        //Berechne die Dauer (Formel aus der Vorlesung)
+                        result = bitAmount / bitRate;
+                        duration.innerText = result.toFixed(2) + "s";
+                        }
+            
+            function check() {
+                        //Berechne das richtige Ergebnis
+                        calculate();
+            
+                        //Vergleiche das richtige Ergebnis mit dem eingetragenen Wert
+                        if (userDuration.value == result.toFixed(2)) {
+                            userDuration.style.backgroundColor = "green";
+                        }
+                        else {
+                            userDuration.style.backgroundColor = "red";
+                        }
+                        }
+
+
+    </script>
+
+</body>
+</html>
